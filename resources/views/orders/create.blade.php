@@ -82,6 +82,18 @@
                                 </div>
                                 
                                 <div class="mb-4">
+                                    <label for="status" class="block text-sm font-medium text-gray-700">Status Pesanan*</label>
+                                    <select name="status" id="status" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                        <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Selesai</option>
+                                        <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    </select>
+                                    @error('status')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                
+                                <div class="mb-4">
                                     <label for="notes" class="block text-sm font-medium text-gray-700">Catatan</label>
                                     <textarea name="notes" id="notes" rows="3"
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{ old('notes') }}</textarea>
@@ -105,7 +117,6 @@
 <script>
     let cart = [];
     
-    // Jika ada data old (setelah validasi gagal), isi ulang cart
     document.addEventListener('DOMContentLoaded', function() {
         const oldItems = document.getElementById('order-items').value;
         if (oldItems) {
@@ -114,8 +125,8 @@
                 if (Array.isArray(items)) {
                     cart = items.map(item => ({
                         product_id: item.product_id,
-                        name: item.name || 'Unknown Product', // Fallback jika name tidak ada
-                        price: item.price || 0, // Fallback jika price tidak ada
+                        name: item.name || 'Unknown Product',
+                        price: item.price || 0,
                         quantity: item.quantity,
                         subtotal: item.quantity * (item.price || 0)
                     }));
@@ -126,31 +137,19 @@
             }
         }
 
-        // Event delegation untuk tombol + dan -
         document.getElementById('cart-items').addEventListener('click', function(event) {
             const target = event.target;
             if (target.classList.contains('btn-increase')) {
                 const index = parseInt(target.getAttribute('data-index'));
-                console.log('Increase button clicked, index:', index);
-                if (!isNaN(index)) {
-                    updateQuantity(index, 1);
-                } else {
-                    console.error('Invalid index for increase button:', index);
-                }
+                updateQuantity(index, 1);
             } else if (target.classList.contains('btn-decrease')) {
                 const index = parseInt(target.getAttribute('data-index'));
-                console.log('Decrease button clicked, index:', index);
-                if (!isNaN(index)) {
-                    updateQuantity(index, -1);
-                } else {
-                    console.error('Invalid index for decrease button:', index);
-                }
+                updateQuantity(index, -1);
             }
         });
     });
     
     function addProduct(product) {
-        console.log('Adding product:', product);
         const existingItem = cart.find(item => item.product_id == product.id);
         
         if (existingItem) {
@@ -166,17 +165,13 @@
             });
         }
         
-        console.log('Cart after adding product:', cart);
         updateCart();
     }
     
     function updateQuantity(index, change) {
-        console.log('Updating quantity for index:', index, 'Change:', change);
         const item = cart[index];
-        if (!item) {
-            console.error('Item not found at index:', index);
-            return;
-        }
+        if (!item) return;
+        
         item.quantity += change;
         
         if (item.quantity < 1) {
@@ -194,8 +189,6 @@
         const totalAmount = document.getElementById('total-amount');
         const orderItems = document.getElementById('order-items');
         const submitButton = document.getElementById('submit-button');
-        
-        console.log('Current cart:', cart);
         
         cartItems.innerHTML = '';
         
@@ -239,8 +232,6 @@
                 quantity: item.quantity
             })));
             submitButton.disabled = false;
-            
-            console.log('Data yang akan dikirim:', orderItems.value);
         }
     }
 </script>

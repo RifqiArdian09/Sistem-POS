@@ -60,7 +60,7 @@
                     <p class="text-sm text-gray-500">Pesanan Pending</p>
                     <div class="flex items-center">
                         <p class="text-xl font-semibold">{{ $pending_orders_count }}</p>
-                        <a href="{{ route('orders.pending') }}" class="ml-2 text-sm text-blue-600 hover:underline">Lihat</a>
+                        <a href="{{ route('orders.pending.index') }}" class="ml-2 text-sm text-blue-600 hover:underline">Lihat</a>
                     </div>
                 </div>
             </div>

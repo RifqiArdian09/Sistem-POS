@@ -37,7 +37,7 @@
                 <i class="fas fa-coffee w-5"></i>
                 <span class="ml-3">Produk</span>
             </a>
-            <a href="{{ route('orders.pending') }}" class="flex items-center px-3 py-2 text-sm rounded {{ request()->routeIs('orders.pending') ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50' }}">
+            <a href="{{ route('orders.pending.index') }}" class="flex items-center px-3 py-2 text-sm rounded {{ request()->routeIs('orders.pending') ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50' }}">
                 <i class="fas fa-clock w-5"></i>
                 <span class="ml-3">Pesanan Pending</span>
             </a>
@@ -85,7 +85,7 @@
                 <i class="fas fa-coffee w-5"></i>
                 <span class="ml-3">Produk</span>
             </a>
-            <a href="{{ route('orders.pending') }}" class="flex items-center px-3 py-2 text-sm rounded {{ request()->routeIs('orders.pending') ? 'bg-blue-50 text-blue-600' : 'text-gray-600' }}">
+            <a href="{{ route('orders.pending.index') }}" class="flex items-center px-3 py-2 text-sm rounded {{ request()->routeIs('orders.pending') ? 'bg-blue-50 text-blue-600' : 'text-gray-600' }}">
                 <i class="fas fa-clock w-5"></i>
                 <span class="ml-3">Pesanan Pending</span>
             </a>

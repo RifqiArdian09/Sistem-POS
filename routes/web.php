@@ -33,11 +33,20 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class)->except(['show']);
 
     // Orders
-    Route::resource('orders', OrderController::class)->except(['edit', 'update']);
-    Route::get('orders/pending', [OrderController::class, 'pendingOrders'])->name('orders.pending');
+    
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/orders/show', [OrderController::class, 'show'])->name('orders.show');
+    Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+
+
+    Route::get('/orders/pending', [OrderController::class, 'pendingOrders'])->name('orders.pending.index');
     Route::post('orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.update-status');
     Route::get('orders/{order}/receipt', [OrderController::class, 'printReceipt'])->name('orders.receipt');
 
+    // Reports
     Route::prefix('reports')->group(function () {
         Route::get('/', [ReportController::class, 'index'])->name('reports.index');
         Route::post('/generate', [ReportController::class, 'generate'])->name('reports.generate');
